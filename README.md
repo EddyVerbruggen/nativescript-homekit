@@ -109,7 +109,7 @@ var homeKit = new HomeKit();
 
 homeKit.available().then(
   function(available) {
-    console.log(available ? "YES!" : "NO);
+    console.log(available ? "YES!" : "NO");
   }
 );
 ```
@@ -124,7 +124,7 @@ private homeKit = new HomeKit();
 
 public checkAvailability(): void {
   this.homeKit.available().then(
-    avail => console.log(available ? "YES!" : "NO),
+    avail => console.log(available ? "YES!" : "NO"),
     err => console.log(err)
   );
 }
