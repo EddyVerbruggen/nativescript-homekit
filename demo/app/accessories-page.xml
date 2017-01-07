@@ -1,0 +1,15 @@
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" loaded="pageLoaded">
+  <StackLayout>
+
+    <Button text="Add an accessory" tap="addAccessory"/>
+
+    <ListView rowHeight="60" items="{{ accessories }}" itemTap="onAccessoryItemTap">
+      <ListView.itemTemplate>
+        <StackLayout>
+          <Label text="{{ name }}" class="title" />
+        </StackLayout>
+      </ListView.itemTemplate>
+    </ListView>
+
+  </StackLayout>
+</Page>

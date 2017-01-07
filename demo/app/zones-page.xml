@@ -1,0 +1,16 @@
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" loaded="pageLoaded">
+  <StackLayout>
+
+    <Button text="Add a zone" tap="addZone"/>
+
+    <ListView rowHeight="60" items="{{ zones }}" itemTap="onZoneItemTap">
+      <ListView.itemTemplate>
+        <StackLayout>
+          <Label text="{{ name }}" class="title" />
+          <Label text="{{ rooms.length + ' room' + (rooms.length == 1 ? '' : 's') }}" class="subtitle" />
+        </StackLayout>
+      </ListView.itemTemplate>
+    </ListView>
+
+  </StackLayout>
+</Page>

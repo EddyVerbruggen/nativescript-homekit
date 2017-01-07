@@ -1,0 +1,16 @@
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" loaded="pageLoaded">
+  <StackLayout>
+
+    <Button text="Add a room" tap="addRoom"/>
+
+    <ListView rowHeight="60" items="{{ rooms }}" itemTap="onRoomItemTap">
+      <ListView.itemTemplate>
+        <StackLayout>
+          <Label text="{{ name }}" class="title" />
+          <Label text="{{ accessories.length + ' accessor' + (accessories.length == 1 ? 'y' : 'ies') }}" class="subtitle" />
+        </StackLayout>
+      </ListView.itemTemplate>
+    </ListView>
+
+  </StackLayout>
+</Page>

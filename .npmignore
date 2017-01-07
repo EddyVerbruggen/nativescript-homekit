@@ -1,0 +1,10 @@
+.idea
+.vscode
+demo/
+docimages/
+*.gif
+*.png
+*.log
+*.map
+*.ts
+!*.d.ts

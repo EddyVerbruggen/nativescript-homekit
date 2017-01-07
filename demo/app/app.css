@@ -1,0 +1,28 @@
+﻿.header {
+  font-size: 18;
+  font-weight: bold;
+  horizontal-align: center;
+  margin:6;
+}
+
+.title {
+  font-size: 18;
+  horizontal-align: center;
+  margin:6;
+}
+
+.subtitle {
+  font-size: 13;
+  horizontal-align: center;
+  margin: 0 10;
+}
+
+Button {
+  font-size: 18;
+  horizontal-align: center;
+  margin: 8;
+}
+
+ListView {
+  margin: 10;
+}

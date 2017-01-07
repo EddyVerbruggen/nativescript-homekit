@@ -1,0 +1,32 @@
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" loaded="pageLoaded">
+  <StackLayout style="margin-top: 20">
+    <Label class="header" text="Search accessories not added to a Home, they'll be listed below" textWrap="true"/>
+    <StackLayout orientation="horizontal" horizontalAlignment="center">
+      <Button text="Start" tap="{{ startSearching }}"/>
+      <Button text="Stop" tap="{{ stopSearching }}"/>
+      <ActivityIndicator busy="{{ searching }}" visibility="{{ searching ? 'visible' : 'collapse' }}"/>
+    </StackLayout>
+    <ListView rowHeight="60" items="{{ accessories }}" itemTap="{{ onAccessoryTap }}">
+      <ListView.itemTemplate>
+        <StackLayout>
+          <Label text="{{ name }}" class="title" />
+        </StackLayout>
+      </ListView.itemTemplate>
+    </ListView>
+
+    <Label class="header" style="margin-top: 60" text="Homes you've defined are listed below" textWrap="true"/>
+    <Button text="Add a Home" tap="{{ addHome }}"/>
+    <ListView rowHeight="60" items="{{ homes }}" itemTap="{{ onHomeItemTap }}">
+      <ListView.itemTemplate>
+        <StackLayout>
+          <Label text="{{ name + (primary ? ' (primary)' : '') }}" class="title" />
+          <StackLayout orientation="horizontal" horizontalAlignment="center">
+            <Label text="{{ zones.length + ' zone' + (zones.length == 1 ? '' : 's') }}" class="subtitle" />
+            <Label text="{{ rooms.length + ' room' + (rooms.length == 1 ? '' : 's') }}" class="subtitle" />
+            <Label text="{{ accessories.length + ' accessor' + (accessories.length == 1 ? 'y' : 'ies') }}" class="subtitle" />
+          </StackLayout>
+        </StackLayout>
+      </ListView.itemTemplate>
+    </ListView>
+  </StackLayout>
+</Page>

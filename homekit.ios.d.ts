@@ -1,0 +1,35 @@
+import { HomeKitApi, Home, Zone, Room, Accessory } from "./homekit.common";
+export declare class HomeKit implements HomeKitApi {
+    init(onHomesUpdated: (homes: Array<Home>) => void): Promise<any>;
+    startSearchingForAccessories(onAccessoryFound: (accessory: Accessory) => void, onAccessoryRemoved?: (accessory: Accessory) => void): Promise<any>;
+    stopSearchingForAccessories(): Promise<any>;
+    private getHomes();
+    available(): Promise<boolean>;
+    addHome(name: string): Promise<Home>;
+    removeHome(name: string): Promise<Home>;
+    renameHome(oldName: string, newName: string): Promise<Home>;
+    addZone(name: string, toHome: string): Promise<Zone>;
+    removeZone(name: string, fromHome: string): Promise<Zone>;
+    renameZone(oldName: string, newName: string, inHome: string): Promise<Zone>;
+    addRoomToHome(name: string, toHome: string): Promise<Room>;
+    addRoomToZone(name: string, toZone: string, inHome: string): Promise<Zone>;
+    removeRoomFromHome(name: string, fromHome: string): Promise<Room>;
+    removeRoomFromZone(name: string, fromZone: string, inHome: string): Promise<Zone>;
+    renameRoom(oldName: string, newName: string, inHome: string): Promise<Room>;
+    addAccessoryToHome(accessoryName: string, toHome: string): Promise<Home>;
+    removeAccessoryFromHome(accessoryName: string, fromHome: string): Promise<Home>;
+    assignAccessoryToRoom(accessoryName: string, roomName: string, inHome: string): Promise<Array<Room>>;
+    renameAccessory(oldName: string, newName: string): Promise<Accessory>;
+    private static findHome(name);
+    private static findZone(name, inHome);
+    private static findRoom(name, inHome);
+    private static findAccessory(name);
+    private static findAccessoryInHome(name, inHome);
+    private static transformHome(home);
+    private static transformRooms(nrooms);
+    private static transformRoom(nroom, skipAccessories?);
+    private static transformAccessories(naccessories);
+    private static transformAccessory(acc);
+    private static transformZones(nzones);
+    private static transformZone(zone);
+}
