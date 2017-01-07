@@ -8,6 +8,10 @@ export class HomeKit implements HomeKitApi {
   init(onHomesUpdated: (homes: Array<Home>) => void): Promise<any> {
     const that = this;
     return new Promise((resolve, reject) => {
+      if (!onHomesUpdated) {
+        reject("Pass in a function that will receive the discovered homes");
+        return;
+      }
       // see https://developer.apple.com/library/content/documentation/NetworkingInternet/Conceptual/HomeKitDeveloperGuide/FindingandAddingAccessories/FindingandAddingAccessories.html#//apple_ref/doc/uid/TP40015050-CH3-SW1
       _homeManager = HMHomeManager.new();
       _homeManager.delegate = HMHomeManagerDelegateImpl.new().initWithCallback(() => {
@@ -22,6 +26,10 @@ export class HomeKit implements HomeKitApi {
   startSearchingForAccessories(onAccessoryFound: (accessory: Accessory) => void, onAccessoryRemoved?: (accessory: Accessory) => void): Promise<any> {
     const that = this;
     return new Promise((resolve, reject) => {
+      if (!onAccessoryFound) {
+        reject("Pass in a function that will receive newly found accessories");
+        return;
+      }
       _accessoryBrowser = HMAccessoryBrowser.new();
       _accessoryBrowser.delegate = HMAccessoryBrowserDelegateImpl.new().initWithCallback((accessory: HMAccessory, removed: boolean) => {
         if (removed) {
@@ -29,9 +37,7 @@ export class HomeKit implements HomeKitApi {
             onAccessoryRemoved(HomeKit.transformAccessory(accessory));
           }
         } else {
-          if (onAccessoryFound) {
-            onAccessoryFound(HomeKit.transformAccessory(accessory));
-          }
+          onAccessoryFound(HomeKit.transformAccessory(accessory));
         }
       });
       _accessoryBrowser.startSearchingForNewAccessories();
@@ -68,7 +74,7 @@ export class HomeKit implements HomeKitApi {
     const that = this;
     return new Promise((resolve, reject) => {
       if (!_homeManager) {
-        reject("Run 'init' first.");
+        reject("Run 'init' first");
         return;
       }
       _homeManager.addHomeWithNameCompletionHandler(name, (home, error) => {
@@ -85,7 +91,7 @@ export class HomeKit implements HomeKitApi {
     const that = this;
     return new Promise((resolve, reject) => {
       if (!_homeManager) {
-        reject("Run 'init' first.");
+        reject("Run 'init' first");
         return;
       }
       let home: HMHome = HomeKit.findHome(name);
@@ -107,7 +113,7 @@ export class HomeKit implements HomeKitApi {
     const that = this;
     return new Promise((resolve, reject) => {
       if (!_homeManager) {
-        reject("Run 'init' first.");
+        reject("Run 'init' first");
         return;
       }
 
@@ -131,7 +137,7 @@ export class HomeKit implements HomeKitApi {
     const that = this;
     return new Promise((resolve, reject) => {
       if (!_homeManager) {
-        reject("Run 'init' first.");
+        reject("Run 'init' first");
         return;
       }
 
@@ -155,7 +161,7 @@ export class HomeKit implements HomeKitApi {
     const that = this;
     return new Promise((resolve, reject) => {
       if (!_homeManager) {
-        reject("Run 'init' first.");
+        reject("Run 'init' first");
         return;
       }
 
@@ -185,7 +191,7 @@ export class HomeKit implements HomeKitApi {
     const that = this;
     return new Promise((resolve, reject) => {
       if (!_homeManager) {
-        reject("Run 'init' first.");
+        reject("Run 'init' first");
         return;
       }
 
@@ -215,7 +221,7 @@ export class HomeKit implements HomeKitApi {
     const that = this;
     return new Promise((resolve, reject) => {
       if (!_homeManager) {
-        reject("Run 'init' first.");
+        reject("Run 'init' first");
         return;
       }
 
@@ -239,7 +245,7 @@ export class HomeKit implements HomeKitApi {
     const that = this;
     return new Promise((resolve, reject) => {
       if (!_homeManager) {
-        reject("Run 'init' first.");
+        reject("Run 'init' first");
         return;
       }
 
@@ -275,7 +281,7 @@ export class HomeKit implements HomeKitApi {
     const that = this;
     return new Promise((resolve, reject) => {
       if (!_homeManager) {
-        reject("Run 'init' first.");
+        reject("Run 'init' first");
         return;
       }
 
@@ -305,7 +311,7 @@ export class HomeKit implements HomeKitApi {
     const that = this;
     return new Promise((resolve, reject) => {
       if (!_homeManager) {
-        reject("Run 'init' first.");
+        reject("Run 'init' first");
         return;
       }
 
@@ -341,7 +347,7 @@ export class HomeKit implements HomeKitApi {
     const that = this;
     return new Promise((resolve, reject) => {
       if (!_homeManager) {
-        reject("Run 'init' first.");
+        reject("Run 'init' first");
         return;
       }
 
@@ -371,7 +377,7 @@ export class HomeKit implements HomeKitApi {
     const that = this;
     return new Promise((resolve, reject) => {
       if (!_homeManager) {
-        reject("Run 'init' first.");
+        reject("Run 'init' first");
         return;
       }
 
@@ -406,7 +412,7 @@ export class HomeKit implements HomeKitApi {
     const that = this;
     return new Promise((resolve, reject) => {
       if (!_homeManager) {
-        reject("Run 'init' first.");
+        reject("Run 'init' first");
         return;
       }
 
@@ -436,7 +442,7 @@ export class HomeKit implements HomeKitApi {
     const that = this;
     return new Promise((resolve, reject) => {
       if (!_homeManager) {
-        reject("Run 'init' first.");
+        reject("Run 'init' first");
         return;
       }
 
