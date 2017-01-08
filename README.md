@@ -15,7 +15,7 @@ tns plugin add nativescript-homekit
 You can run the demo app from the root of the project by typing `npm run demo.ios`.
 
 ## A bit of context
-As mentioned [here](https://developer.apple.com/library/content/documentation/NetworkingInternet/Conceptual/HomeKitDeveloperGuide/Introduction/Introduction.html#//apple_ref/doc/uid/TP40015050-CH1-SW1), HomeKit is a framework for communicating with and controlling connected home automation accessories that support Apple's HomeKit Accessory Protocol. HomeKit apps enable users to discover compatible accessories and configure them. Users can also create actions to control accessories (such as a thermostat or light), group them together, and trigger them by using Siri. 
+As mentioned [here](https://developer.apple.com/library/content/documentation/NetworkingInternet/Conceptual/HomeKitDeveloperGuide/Introduction/Introduction.html#//apple_ref/doc/uid/TP40015050-CH1-SW1), HomeKit is a framework for communicating with and controlling connected home automation accessories that support Apple's HomeKit Accessory Protocol. HomeKit apps enable users to discover compatible accessories and configure them. Users can also create actions to control accessories (such as a thermostat or lightbulb), group them together, and trigger them by using Siri. 
 
 HomeKit objects are stored in a database residing on the user’s iOS device, which is synchronized over iCloud to other iOS devices. HomeKit supports remote access to accessories, multiple user devices, and multiple users. HomeKit also handles security and privacy for you.
 
@@ -48,13 +48,13 @@ Just open the simulator and add a new accessory as shown in this picture and you
 ## Types
 The HomeKit plugin wraps the native iOS HomeKit SDK classes to make it more convenient for you to work with them. The API functions further below use the types listed in this section.
 
-Note that you can skip this section and just look at the TypeeScript `.ts.d` files shipped with this plugin. If you use a decent IDE like VSCode or Webstorm/Intellij you will get autocomplete, etc based on those definitions.
+Note that you can skip this section and just look at the TypeScript `.ts.d` files shipped with this plugin. If you use a decent IDE like VSCode or Webstorm/Intellij you will get autocomplete, etc based on those definitions.
 
 ### `Home`
 
 | Property | Type | Description |
 --- | --- | --- | ---
-| name | `string` | This is used by Siri so it is unique |
+| name | `string` | This is used by Siri so it's unique |
 | primary | `boolean` | The first home you create will be the 'primary' home |
 | zones | `Array<Zone>` | All zones you've created in this home |
 | rooms | `Array<Room>` | All rooms you've created in this home |
@@ -65,16 +65,16 @@ Note that you can skip this section and just look at the TypeeScript `.ts.d` fil
 
 | Property | Type | Description |
 --- | --- | --- | ---
-| name | `string` | This is used by Siri so it is unique for the home |
-| rooms | `Array<Room>` | A zone can have mulriple rooms, each with a unique name |
+| name | `string` | This is used by Siri so it's unique for the home |
+| rooms | `Array<Room>` | A zone can have multiple rooms, each with a unique name |
 | ios | [`HMZone`](https://developer.apple.com/reference/homekit/hmzone?language=objc) | The native HomeKit SDK class you can further explore |
 
 ### `Room`
 
 | Property | Type | Description |
 --- | --- | --- | ---
-| name | `string` | This is used by Siri so it is unique for the home |
-| accessories | `Array<Accessory>` | A room can have mulriple accessories assigned to it |
+| name | `string` | This is used by Siri so it's unique for the home |
+| accessories | `Array<Accessory>` | A room can have multiple accessories assigned to it |
 | ios | [`HMRoom`](https://developer.apple.com/reference/homekit/hmroom?language=objc) | The native HomeKit SDK class you can further explore |
 
 ### `Accessory`
@@ -82,7 +82,7 @@ Note that you can skip this section and just look at the TypeeScript `.ts.d` fil
 | Property | Type | Description |
 --- | --- | --- | ---
 | name | `string` | This is used by Siri so it is unique for the home |
-| bridged | `boolean` | Whether or not this accessory is connected through a bridge (which is an accessory like everything else) |
+| bridged | `boolean` | Whether or not this accessory is connected through a bridge (which is just another accessory for HomeKit) |
 | room? | `Room` | The accessory may or may not be assigned to a room |
 | ios | [`HMAccessory`](https://developer.apple.com/reference/homekit/hmaccessory?language=objc) | The native HomeKit SDK class you can further explore |
 
@@ -93,11 +93,9 @@ Sounds a bit overwhelming? Just look at the demo app as it has all those bits co
 
 Note that all of these API functions use Promises so their `.then()` will receive a resolve and reject param. The reject will always contain a string with an error reason. Most of the time those error will originate from HomeKit itself. For instance if you add a room with the same name as an existing room to a home. Or if you end a roomname with a character Siri doesn't like.
 
-For brevity I'll omit those rejects from most of the examples.
-
 ### `available`
 
-On iOS this will always return `true`, on Android `false`. So if you already have some other convenient means to branch your code between those two then don't bother invoking this method at all.
+On iOS this will always return `true`, on Android `false`. So if you already have some other convenient means to branch your code between those two then don't bother invoking this at all.
 
 ##### JavaScript
 ```js
@@ -142,9 +140,9 @@ this.homeKit.init((homes: Array<Home>) => {
 ### `startSearchingForAccessories`
 Accessories may pop up at any time, but by default your app isn't searching for them all the time. It's probably a good idea to add a button to your app's UI that starts and stops searching for accessories as the user will know best when a new accessory can be found.
 
-Only _new_ accessories can be found, not ones already assigned to a home or room. Also, when accessories were previously stored in the local HomeKit database and have now been removed (try it, delete one in the HomeKit Simulator) then you'll be notified as well.
+Only _new_ accessories can be found, not ones already assigned to a (room in a) home. Also, when accessories were previously stored in the local HomeKit database and have now been removed then you'll be notified as well (try it, assign one and then delete it in the HomeKit Simulator).
 
-To that end you can pass in 2 distinct callback functions: the first is for newly discovered the devices, the second for removed devices:
+To that end you can pass in 2 distinct callback functions: the first is for newly discovered devices, the second for devices which have been removed:
 
 ```js
 this.homekit.startSearchingForAccessories(
@@ -162,7 +160,7 @@ this.homekit.startSearchingForAccessories(
 ```
 
 ### `stopSearchingForAccessories`
-I'm not sure how much of a battery drainer search for accessories is, but it's probably a good idea to allow the user to be able to stop searching for accessories.
+I'm not sure how much of a battery drainer searching for accessories is, but it's probably a good idea to allow the user to be able to stop searching for accessories at some point.
 
 And it's easily implemented as well, so go for it!
 
@@ -171,7 +169,7 @@ this.homekit.stopSearchingForAccessories().then(() => console.log("Searching sto
 ```
 
 ### Managing homes: `addHome`, `removeHome`, `renameHome`
-You can offer the user to configure his homes, zones, and rooms (like the demo app does). Here's how you manage the homes:
+You can offer the user to configure his homes, zones, and rooms (like the [demo app](demo/) does). Here's how you manage the homes:
 
 #### `addHome`
 ```js
@@ -210,7 +208,7 @@ prompt(`Rename home '${currentName}' to..`, currentName).then((promptResult: Pro
 ```
 
 ### Managing zones: `addZone`, `removeZone`, `renameZone`
-Much the same as homes, so to not bore you we're just showing the TypeScript defintion here:
+Much the same as homes, so to not bore you we're just showing the TypeScript definitions here:
 
 ```js
 addZone(name: string, toHome: string): Promise<Zone>;
@@ -221,7 +219,7 @@ renameZone(oldName: string, newName: string, inHome: string): Promise<Zone>;
 ```
 
 ### Managing rooms: `addRoomToHome`, `addRoomToZone`, `removeRoomFromZone`, `removeRoomFromHome`, `renameRoom`
-Again, quite similar to the others. The only difference is you can only add a room to a zone if it's already added to a home. Which makes sense, right? Right. So that's why you also need to pass the home name when manipulating rooms in a zone.
+Again, quite similar to the others. The only difference is you can only add a room to a zone if it's already added to the home. Which makes sense, right? Right. So that's why you also need to pass the home name when manipulating rooms in a zone.
 
 ```js
 addRoomToHome(name: string, toHome: string): Promise<Room>;
