@@ -106,6 +106,11 @@ export class HelloWorldModel extends Observable {
       actions.push(`${removeAccPrefix}${h.accessories[i].name}`);
     }
 
+    let showServicesPrefix: string = "Show services of: ";
+    for (let i = 0; i < h.accessories.length; i++) {
+      actions.push(`${showServicesPrefix}${h.accessories[i].name}`);
+    }
+
     action({
       message: `What to do with home '${h.name}'?`,
       actions: actions,
@@ -121,6 +126,14 @@ export class HelloWorldModel extends Observable {
           HelloWorldModel.navigateToRooms(h);
         } else if (pickedAction === "Manage its zones") {
           HelloWorldModel.navigateToZones(h);
+        } else if (pickedAction.indexOf(showServicesPrefix) === 0) {
+          let accToShowServicesOf = pickedAction.substring(showServicesPrefix.length);
+          for (let i = 0; i < h.accessories.length; i++) {
+            if (accToShowServicesOf === h.accessories[i].name) {
+              that.showAccessoryServices(h.accessories[i]);
+              break;
+            }
+          }
         } else if (pickedAction.indexOf(removeAccPrefix) === 0) {
           let accToRemove = pickedAction.substring(removeAccPrefix.length);
           this.homekit.removeAccessoryFromHome(accToRemove, h.name).then(
@@ -135,6 +148,20 @@ export class HelloWorldModel extends Observable {
               }, err => alert(err));
         }
       }
+    });
+  }
+
+  private showAccessoryServices(accessory: Accessory): void {
+    let services: Array<string> = [];
+    for (let i = 0; i < accessory.services.length; i++) {
+      services[i] = `${accessory.services[i].name} (${accessory.services[i].characteristics.length} characteristics)`;
+    }
+
+    action({
+      message: `These are ${accessory.name}'s services:`,
+      actions: services,
+      cancelable: true,
+      cancelButtonText: "Cool, thanks!"
     });
   }
 

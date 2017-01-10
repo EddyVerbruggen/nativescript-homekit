@@ -84,7 +84,25 @@ Note that you can skip this section and just look at the TypeScript `.ts.d` file
 | name | `string` | This is used by Siri so it is unique for the home |
 | bridged | `boolean` | Whether or not this accessory is connected through a bridge (which is just another accessory for HomeKit) |
 | room? | `Room` | The accessory may or may not be assigned to a room |
+| services | `Array<Service>` | An accessory can have multiple services (only services with a name are listed per Apples recommendation) |
 | ios | [`HMAccessory`](https://developer.apple.com/reference/homekit/hmaccessory?language=objc) | The native HomeKit SDK class you can further explore |
+
+### `Service`
+
+| Property | Type | Description |
+--- | --- | --- | ---
+| name | `string` | This is used by Siri so it is unique for the home (can be changed, but is not currently exposed as a method in this plugin) |
+| type | `string` | Type of service, can be used by Siri as well |
+| characteristics | `Array<Characteristic>` | A service can have multiple characteristics |
+| ios | [`HMService`](https://developer.apple.com/reference/homekit/hmservice?language=objc) | The native HomeKit SDK class you can further explore |
+
+### `Characteristic`
+
+| Property | Type | Description |
+--- | --- | --- | ---
+| type | `string` | Type of characteristic |
+| description | `string` | Describes the characteristic |
+| ios | [`HMCharacteristic`](https://developer.apple.com/reference/homekit/hmcharacteristic?language=objc) | The native HomeKit SDK class you can further explore |
 
 ## API
 Most of the examples will be in TypeScript as I think that's by far the best way to build anything with JavaScript these days. If you plan on doing some deep interaction with HomeKit's accessories and services you'll also want to install the `tns-platform-declarations` modules which provide TypeScript declarations of the HomeKit SDK.

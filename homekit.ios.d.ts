@@ -32,4 +32,8 @@ export declare class HomeKit implements HomeKitApi {
     private static transformAccessory(acc);
     private static transformZones(nzones);
     private static transformZone(zone);
+    private static transformServices(nservices);
+    private static transformService(service);
+    private static transformCharacteristics(ncharacteristics);
+    private static transformCharacteristic(characteristic);
 }

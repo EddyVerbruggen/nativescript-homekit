@@ -1,7 +1,17 @@
+export interface Characteristic {
+    ios: any;
+}
+export interface Service {
+    name: string;
+    type: string;
+    characteristics: Array<Characteristic>;
+    ios: any;
+}
 export interface Accessory {
     name: string;
     bridged: boolean;
     room?: Room;
+    services: Array<Service>;
     ios: any;
 }
 export interface Zone {

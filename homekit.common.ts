@@ -1,7 +1,21 @@
+export interface Characteristic {
+  type: string;
+  description: string;
+  ios: any; /* HMCharacteristic */
+}
+
+export interface Service {
+  name: string;
+  type: string;
+  characteristics: Array<Characteristic>;
+  ios: any; /* HMService */
+}
+
 export interface Accessory {
   name: string;
   bridged: boolean;
   room?: Room;
+  services: Array<Service>;
   ios: any; /* HMAccessory */
 }
 

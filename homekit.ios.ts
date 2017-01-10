@@ -1,4 +1,4 @@
-import { HomeKitApi, Home, Zone, Room, Accessory } from "./homekit.common";
+import { HomeKitApi, Home, Zone, Room, Accessory, Service, Characteristic } from "./homekit.common";
 
 let _homeManager: HMHomeManager = null;
 let _accessoryBrowser: HMAccessoryBrowser = null;
@@ -600,6 +600,7 @@ export class HomeKit implements HomeKitApi {
       name: acc.name,
       bridged: acc.bridged,
       room: HomeKit.transformRoom(acc.room, true),
+      services: HomeKit.transformServices(acc.services),
       ios: acc
     };
   }
@@ -617,6 +618,43 @@ export class HomeKit implements HomeKitApi {
       name: zone.name,
       rooms: HomeKit.transformRooms(zone.rooms),
       ios: zone
+    };
+  }
+
+  private static transformServices(nservices: NSArray<HMService>): Array<Service> {
+    let services: Array<Service> = [];
+    for (let i: number = 0; i < nservices.count; i++) {
+      let ns = nservices.objectAtIndex(i);
+      // as mentioned by Apple unnamed services should not be exposed to users, so this prolly makes sense
+      if (ns.name) {
+        services.push(HomeKit.transformService(nservices.objectAtIndex(i)));
+      }
+    }
+    return services;
+  }
+
+  private static transformService(service: HMService): Service {
+    return {
+      name: service.name,
+      type: service.serviceType,
+      characteristics: HomeKit.transformCharacteristics(service.characteristics),
+      ios: service
+    };
+  }
+
+  private static transformCharacteristics(ncharacteristics: NSArray<HMCharacteristic>): Array<Characteristic> {
+    let characteristics: Array<Characteristic> = [];
+    for (let i: number = 0; i < ncharacteristics.count; i++) {
+      characteristics.push(HomeKit.transformCharacteristic(ncharacteristics.objectAtIndex(i)));
+    }
+    return characteristics;
+  }
+
+  private static transformCharacteristic(characteristic: HMCharacteristic): Characteristic {
+    return {
+      type: characteristic.characteristicType,
+      description: characteristic.localizedDescription,
+      ios: characteristic
     };
   }
 }
