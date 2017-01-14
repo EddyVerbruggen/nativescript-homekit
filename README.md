@@ -183,7 +183,7 @@ I'm not sure how much of a battery drainer searching for accessories is, but it'
 And it's easily implemented as well, so go for it!
 
 ```js
-this.homekit.stopSearchingForAccessories().then(() => console.log("Searching stopped"));
+this.homekit.stopSearchingForAccessories().then(() => console.log("Stopped searching"));
 ```
 
 ### Managing homes: `addHome`, `removeHome`, `renameHome`
