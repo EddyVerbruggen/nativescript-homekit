@@ -53,7 +53,7 @@ Note that you can skip this section and just look at the TypeScript `.ts.d` file
 ### `Home`
 
 | Property | Type | Description |
---- | --- | --- | ---
+| --- | --- | --- |
 | name | `string` | This is used by Siri so it's unique |
 | primary | `boolean` | The first home you create will be the 'primary' home |
 | zones | `Array<Zone>` | All zones you've created in this home |
@@ -64,7 +64,7 @@ Note that you can skip this section and just look at the TypeScript `.ts.d` file
 ### `Zone`
 
 | Property | Type | Description |
---- | --- | --- | ---
+| --- | --- | --- |
 | name | `string` | This is used by Siri so it's unique for the home |
 | rooms | `Array<Room>` | A zone can have multiple rooms, each with a unique name |
 | ios | [`HMZone`](https://developer.apple.com/reference/homekit/hmzone?language=objc) | The native HomeKit SDK class you can further explore |
@@ -72,7 +72,7 @@ Note that you can skip this section and just look at the TypeScript `.ts.d` file
 ### `Room`
 
 | Property | Type | Description |
---- | --- | --- | ---
+| --- | --- | --- |
 | name | `string` | This is used by Siri so it's unique for the home |
 | accessories | `Array<Accessory>` | A room can have multiple accessories assigned to it |
 | ios | [`HMRoom`](https://developer.apple.com/reference/homekit/hmroom?language=objc) | The native HomeKit SDK class you can further explore |
@@ -80,7 +80,7 @@ Note that you can skip this section and just look at the TypeScript `.ts.d` file
 ### `Accessory`
 
 | Property | Type | Description |
---- | --- | --- | ---
+| --- | --- | --- |
 | name | `string` | This is used by Siri so it is unique for the home |
 | bridged | `boolean` | Whether or not this accessory is connected through a bridge (which is just another accessory for HomeKit) |
 | room? | `Room` | The accessory may or may not be assigned to a room |
@@ -90,7 +90,7 @@ Note that you can skip this section and just look at the TypeScript `.ts.d` file
 ### `Service`
 
 | Property | Type | Description |
---- | --- | --- | ---
+| --- | --- | --- |
 | name | `string` | This is used by Siri so it is unique for the home (can be changed, but is not currently exposed as a method in this plugin) |
 | type | `string` | Type of service, can be used by Siri as well |
 | characteristics | `Array<Characteristic>` | A service can have multiple characteristics |
@@ -99,7 +99,7 @@ Note that you can skip this section and just look at the TypeScript `.ts.d` file
 ### `Characteristic`
 
 | Property | Type | Description |
---- | --- | --- | ---
+| --- | --- | --- |
 | type | `string` | Type of characteristic |
 | description | `string` | Describes the characteristic |
 | ios | [`HMCharacteristic`](https://developer.apple.com/reference/homekit/hmcharacteristic?language=objc) | The native HomeKit SDK class you can further explore |
